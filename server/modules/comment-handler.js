@@ -1,6 +1,7 @@
 'use strict';
 var client = require('./redis.js');
-var Comment = require('../models/comment.js')
+var Comment = require('../models/comment.js');
+var q = require('q');
 
 function commentHandler() {
   //add a new comment
@@ -39,18 +40,29 @@ function commentHandler() {
     newComment
         .save(function(err,result) {
                 if (err) { throw new Error(err) }
-                res.json(result);
+                //update cache
+                reloadComments(newId) //reload comments from database
+                  .then(function(response) {
+                    client.setex(newId+'-comments',60, JSON.stringify(response));
+                    res.json({'success':'new comment was saved!'});
+                  });
         });
   }
 
   //find all comments for the same character
   this.getComments = function(req,res) {
     var targetId = req.params.id;
-    Comment.find({ characterId: targetId })
-            .exec(function(err,result) {
-              if(err) {throw new Error(err)}
-              res.json(result);
-            })
+    client.get(targetId+'-comments', function(err,comments) {
+      if(comments) { //if comments are cached
+        res.json(JSON.parse(comments));
+      } else {  // if comments are not cached or expired
+        reloadComments(targetId) //reload comments from database
+          .then(function(response) {
+            client.setex(targetId+'-comments',30, JSON.stringify(response));
+            res.json(response);
+          });
+      }
+    })
   }
 
   //delete a comment
@@ -59,7 +71,13 @@ function commentHandler() {
     Comment.findOneAndRemove({ '_id':_id })
             .exec(function(err,result) {
               if(err) { throw new Error(err) }
-              res.json(result);
+              //update cache
+              var targetId = result.characterId;
+              reloadComments(targetId) //reload comments from database
+                .then(function(response) {
+                  client.setex(targetId+'-comments',60, JSON.stringify(response));
+                  res.json({'success':'comment was deleted!'});
+                });
             });
   }
 
@@ -74,6 +92,21 @@ function commentHandler() {
               res.json(result);
             });
   }
+}
+
+//helper function, reload all comments based on a given character id
+function reloadComments(targetId) {
+  //console.log('reload');
+  var deferred = q.defer();
+  Comment.find({ characterId: targetId }) //load comments from database
+          .exec(function(err,result) {
+            if(err) {
+              deferred.reject(err);
+            } else {
+              deferred.resolve(result);
+            }
+          });
+  return deferred.promise;
 }
 
 module.exports = commentHandler;
