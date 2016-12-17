@@ -5,7 +5,6 @@ var request = require('request');
 var crypto = require('crypto');
 var dotenv = require('dotenv');
 var q = require('q');
-var basePath = 'http://gateway.marvel.com/v1/public/characters';
 var ts = new Date().getTime();
 
 dotenv.config();

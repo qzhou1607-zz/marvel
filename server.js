@@ -2,23 +2,23 @@
 var path = require('path');
 var express = require('express');
 var routes = require('./server/routes/index.js');
+var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
 
+mongoose.connect(process.env.MONGODB_URI);
 
 var app = express();
 
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json());
+
 routes(app);
 
-//app.use(express.static(path.resolve(__dirname,"public")));
-
-//app.set("views",path.resolve(__dirname,"views"));
-//app.set("view engine","ejs");
-
-
-//app.route('/api/characters/:id')
-
-//app.use('/api', marvelApiRouter);
+app.set('port',(process.env.Port||3000));
 app.use(function(req,res) {
   res.status(404).render("404");
 });
 
-app.listen(3000);
+app.listen(app.get('port'), function() {
+  console.log('Server listening on port: ' + app.get('port'));
+});
