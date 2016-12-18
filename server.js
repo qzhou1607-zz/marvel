@@ -17,7 +17,7 @@ routes(app);
 
 app.set('port',(process.env.Port||8080));
 app.use(function(req,res) {
-  res.status(404).render("404");
+  res.status(404);
 });
 
 app.listen(app.get('port'), function() {

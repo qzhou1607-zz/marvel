@@ -1,6 +1,39 @@
+.container {
+  padding:50px 15px;
+}
+.left {
+  float:left;
+}
+.right {
+  float:right;
+}
+.text-center {
+  text-align: center;
+}
+
+/*initial loading block*/
+.initial-loading {
+  height:1440px;
+}
+
+/*character list page*/
 .character-tile {
   padding:15px;
+  text-align: center;
+}
+.character-tile img {
+  border-radius:15%;
 }
 .character-name {
+  display: block;
   white-space:nowrap;
+}
+.page-icons {
+  clear:both;
+}
+.page-icon {
+  display: inline-block;
+  padding:5px 20px;
+  font-size: 2em;
+  cursor: pointer;
 }

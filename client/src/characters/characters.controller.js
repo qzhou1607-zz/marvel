@@ -11,12 +11,21 @@
       console.log(characters);
       CharsCtrl.characters = characters;
 
-      //fetch new pages
+      //fetch new page
       CharsCtrl.fetchNextPage = function() {
-        CharsCtrl.page += 1;
-        MarvelService.getAllCharacters(CharsCtrl.page)
+        MarvelService.getAllCharacters(CharsCtrl.page + 1)
           .then(function(response) {
             CharsCtrl.characters = response;
+            CharsCtrl.page += 1;
+          });
+      }
+
+      //fetch previous page
+      CharsCtrl.fetchPreviousPage = function() {
+        MarvelService.getAllCharacters(CharsCtrl.page - 1)
+          .then(function(response) {
+            CharsCtrl.characters = response;
+            CharsCtrl.page -= 1;
           });
       }
     }
