@@ -9,7 +9,7 @@ module.exports = function (app) {
   var queryMarvelHandler = queryMarvelHandler || new QueryMarvel();
   var commentHandler = commentHandler || new CommentHandler();
 
-	app.route('/api/characters')
+	app.route('/api/characters/:page') //offset is used to allow the customization of offset number in http requests
 		.get(queryMarvelHandler.getAllCharacters);
 
 	app.route('/api/characters/:id')

@@ -8,14 +8,15 @@ var client = require('./redis.js');
 function QueryMarvel() {
   //get all characters
   this.getAllCharacters = function(req,res) {
-    client.get('all-characters', function(err, characters) {
+    var page = req.params.page
+    client.get(page + '-all-characters', function(err, characters) {
       if (characters) { //if data was cached and has not expired
         res.json(JSON.parse(characters));
       } else { //data was not cached or has expired
-        httpRequest(basePath)
+        httpRequest(basePath,page)
           .then(function(response) {
             var data = response.body.data;
-            client.setex('all-characters',30,JSON.stringify(data));
+            client.setex(page + '-all-characters',30,JSON.stringify(data));
             res.json(data);
           })
           .catch(function(err) {

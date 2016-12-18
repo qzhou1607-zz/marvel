@@ -14,7 +14,7 @@ var privateKey = process.env.PRIVATE_KEY;
 var publicKey = process.env.PUBLIC_KEY;
 var hash = crypto.createHash('md5').update(ts + privateKey + publicKey).digest('hex');
 
-module.exports = function(targetUrl) {
+module.exports = function(targetUrl, page) {
   var deferred = q.defer();
   request({
     url:targetUrl,
@@ -23,7 +23,8 @@ module.exports = function(targetUrl) {
       ts:ts,
       apikey:publicKey,
       hash:hash,
-      limit:20
+      limit:20,
+      offset:page*20
     }
   }, function(err, response) {
     if(err) {

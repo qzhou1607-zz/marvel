@@ -89,14 +89,19 @@ function commentHandler() {
     Comment.findOneAndUpdate({'_id':_id }, { message: newMessage }, options)
             .exec(function(err,result) {
               if(err) { throw new Error(err) }
-              res.json(result);
+              //update cache
+              var targetId = result.characterId;
+              reloadComments(targetId) //reload comments from database
+                .then(function(response) {
+                  client.setex(targetId+'-comments',60, JSON.stringify(response));
+                  res.json({'success':'comment was updated!'});
+                });
             });
   }
 }
 
-//helper function, reload all comments based on a given character id
+//helper function, reload comments based on a given character id
 function reloadComments(targetId) {
-  //console.log('reload');
   var deferred = q.defer();
   Comment.find({ characterId: targetId }) //load comments from database
           .exec(function(err,result) {

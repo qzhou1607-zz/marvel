@@ -1,0 +1,6 @@
+<div class="container">
+  <h3>Characters</h3>
+  <character-tile ng-repeat="character in CharsCtrl.characters" character="character">
+  </character-tile>
+  <button type="button" name="button" class="btn primary-btn" ng-click="CharsCtrl.fetchNextPage()">Next Page</button>
+</div>
