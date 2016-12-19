@@ -16,7 +16,7 @@ function QueryMarvel() {
         httpRequest(basePath,page)
           .then(function(response) {
             var data = response.body.data;
-            client.setex(page + '-all-characters',60*60,JSON.stringify(data));
+            client.setex(page + '-all-characters',60*60*24,JSON.stringify(data)); //cache result for 24 hours
             res.json(data);
           })
           .catch(function(err) {
@@ -36,7 +36,7 @@ function QueryMarvel() {
         httpRequest(basePath + '/' + id + '/comics?')
           .then(function(response) {
             var data = response.body.data;
-            client.setex(id,60*60,JSON.stringify(data));
+            client.setex(id,60*60*24,JSON.stringify(data)); //cache data for 24 hours
             res.json(data);
           })
       }

@@ -24,6 +24,17 @@ body {
 .list-group {
   padding:0;
 }
+a:hover {
+  text-decoration: none;
+}
+a img:hover {
+  border:solid 5px black;
+}
+/*navbar*/
+.navbar {
+  border-radius:0;
+}
+
 /*loader*/
 .loading-indicator {
     display: block;
