@@ -1,7 +1,7 @@
 <div class="detail-row">
   <div class="col-md-3 col-sm-3 col-xs-12 col-xxs-12 text-center">
         <img class="detail-img"
-        ng-src="{{$ctrl.detail.thumbnail.path}}/standard_medium.{{$ctrl.detail.thumbnail.extension}}"
+        ng-src="{{$ctrl.detail.thumbnail.path.replace('http','https')}}/standard_medium.{{$ctrl.detail.thumbnail.extension}}"
         alt="{{$ctrl.detail.title}}">
   </div>
   <div class="col-md-9 col-sm-9 col-xs-12 col-xxs-12">
@@ -12,7 +12,7 @@
     <span class="highlight detail-related-characters">
       <b>Related characters</b>:
         <span ng-repeat="item in $ctrl.detail.characters.items">
-          {{item.name}}
+          <a ui-sref="character-details({id:item.resourceURI.split('/').pop()})">{{item.name}}</a>
           <span ng-hide="$index === $ctrl.detail.characters.items.length - 1">,</span>
         </span>
     </span>

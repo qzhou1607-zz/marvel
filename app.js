@@ -11,8 +11,7 @@ mongoose.connect(process.env.MONGODB_URI);
 
 var app = express();
 
-app.use(express.static(__dirname + '/client'));
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(express.static(path.join(__dirname, 'client')));
 app.use(bodyParser.json());
 
 routes(app);

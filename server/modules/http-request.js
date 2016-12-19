@@ -8,7 +8,7 @@ var ts = new Date().getTime();
 
 
 if (process.env.NODE_ENV !== 'production') {
-require('dotenv').config()
+  require('dotenv').config();
 }
 
 var privateKey = process.env.PRIVATE_KEY;

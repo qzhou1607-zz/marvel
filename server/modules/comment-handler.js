@@ -10,28 +10,11 @@ function commentHandler() {
     var newName = req.body.name;
     var newMessage = req.body.message;
 
-    // var update = {
-    //   $push:{
-    //     entry:{
-    //       name:newName,
-    //       message:newMessage
-    //     }
-    //   },
-    //   $set:{
-    //     updated: new Date(),
-    //   }
-    //  };
     var newComment = new Comment();
     newComment.characterId = newId;
     newComment.name = newName;
     newComment.message = newMessage;
     newComment.updated = new Date();
-    // var newComment  = {
-    //   characterId:newId,
-    //   name:newName,
-    //   message:newMessage,
-    //   updated:new Date()
-    // }
 
     var options = {
        new:true
@@ -68,7 +51,6 @@ function commentHandler() {
   //delete a comment
   this.deleteComment = function(req,res) {
     var _id = req.query.commentIdx; //unique object id for this comment
-    console.log(_id);
     Comment.findOneAndRemove({ '_id':_id })
             .exec(function(err,result) {
               if(err) { throw new Error(err) }
