@@ -6,8 +6,10 @@ var crypto = require('crypto');
 var q = require('q');
 var ts = new Date().getTime();
 
-require('dotenv').load();
 
+if (process.env.NODE_ENV !== 'production') {
+require('dotenv').config()
+}
 
 var privateKey = process.env.PRIVATE_KEY;
 var publicKey = process.env.PUBLIC_KEY;
