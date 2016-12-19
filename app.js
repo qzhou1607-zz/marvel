@@ -5,7 +5,6 @@ var routes = require('./server/routes/index.js');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
-
 mongoose.connect(process.env.MONGODB_URI);
 
 
@@ -25,3 +24,5 @@ var port = process.env.PORT || 8080;
 app.listen(port,  function () {
 	console.log('Node.js listening on port ' + port + '...');
 });
+
+module.exports = app;

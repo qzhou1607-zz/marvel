@@ -12,7 +12,7 @@ function QueryMarvel() {
     client.get(page + '-all-characters', function(err, characters) {
       if (characters) { //if data was cached and has not expired
         res.json(JSON.parse(characters));
-      } else { //data was not cached or has expired
+      } else { //data was not cached or has expired, send requests
         httpRequest(basePath,page)
           .then(function(response) {
             var data = response.body.data;
@@ -32,7 +32,7 @@ function QueryMarvel() {
     client.get(id, function(err, character) {
       if (character) { //if data was cached and has expired
         res.json(JSON.parse(character));
-      } else { //if data was not cached or has expired
+      } else { //if data was not cached or has expired, send requests
         httpRequest(basePath + '/' + id + '/comics?')
           .then(function(response) {
             var data = response.body.data;
