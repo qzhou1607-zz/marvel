@@ -1,14 +1,13 @@
 process.env.NODE_ENV = 'test';
-process.env.MONGODB_URI = 'mongodb://localhost:27017/marvel';
 var mongoose = require("mongoose");
 var Comment = require('../server/models/comment');
 
 var chai = require('chai');
 var chaiHttp = require('chai-http');
-let server = require('../app');
+var server = require('../app');
+var request = require('request');
 let should = chai.should();
 
-//mongoose.connect(process.env.MONGODB_URI);
 chai.use(chaiHttp);
 
 describe('Comments', function() {
@@ -76,4 +75,30 @@ describe('Comments', function() {
           });
       });
 
+});
+
+describe('Marvel Requests', function() {
+    //test getting characters
+    it('should return characters', function (done) {
+        chai.request(server)
+            .get('/api/characters/0')
+            .end(function(err, res){
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('results');
+              done();
+            });
+    });
+
+    //test getting character details
+    it('should return character details', function (done) {
+        chai.request(server)
+            .get('/api/characters/details/1011334')
+            .end(function(err, res){
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('results');
+              done();
+            });
+    });
 });
