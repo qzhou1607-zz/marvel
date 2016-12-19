@@ -44,7 +44,7 @@ function commentHandler() {
                 reloadComments(newId) //reload comments from database
                   .then(function(response) {
                     client.setex(newId+'-comments',60, JSON.stringify(response));
-                    res.json({'success':'new comment was saved!'});
+                    res.json({'success':'new comment was saved!', 'data':result});
                   });
         });
   }
@@ -67,7 +67,8 @@ function commentHandler() {
 
   //delete a comment
   this.deleteComment = function(req,res) {
-    var _id = req.body._id; //unique object id for this comment
+    var _id = req.query.commentIdx; //unique object id for this comment
+    console.log(_id);
     Comment.findOneAndRemove({ '_id':_id })
             .exec(function(err,result) {
               if(err) { throw new Error(err) }
@@ -76,28 +77,28 @@ function commentHandler() {
               reloadComments(targetId) //reload comments from database
                 .then(function(response) {
                   client.setex(targetId+'-comments',60, JSON.stringify(response));
-                  res.json({'success':'comment was deleted!'});
+                  res.json({'success':'comment was deleted!', 'data':response});
                 });
             });
   }
 
   //update a comment
-  this.updateComment = function(req,res) {
-    var _id = req.body._id;
-    var newMessage = req.body.message;
-    var options = { new: true }
-    Comment.findOneAndUpdate({'_id':_id }, { message: newMessage }, options)
-            .exec(function(err,result) {
-              if(err) { throw new Error(err) }
-              //update cache
-              var targetId = result.characterId;
-              reloadComments(targetId) //reload comments from database
-                .then(function(response) {
-                  client.setex(targetId+'-comments',60, JSON.stringify(response));
-                  res.json({'success':'comment was updated!'});
-                });
-            });
-  }
+  // this.updateComment = function(req,res) {
+  //   var _id = req.body._id;
+  //   var newMessage = req.body.message;
+  //   var options = { new: true }
+  //   Comment.findOneAndUpdate({'_id':_id }, { message: newMessage }, options)
+  //           .exec(function(err,result) {
+  //             if(err) { throw new Error(err) }
+  //             //update cache
+  //             var targetId = result.characterId;
+  //             reloadComments(targetId) //reload comments from database
+  //               .then(function(response) {
+  //                 client.setex(targetId+'-comments',60, JSON.stringify(response));
+  //                 res.json({'success':'comment was updated!'});
+  //               });
+  //           });
+  // }
 }
 
 //helper function, reload comments based on a given character id

@@ -16,7 +16,7 @@ function QueryMarvel() {
         httpRequest(basePath,page)
           .then(function(response) {
             var data = response.body.data;
-            client.setex(page + '-all-characters',30,JSON.stringify(data));
+            client.setex(page + '-all-characters',60*60,JSON.stringify(data));
             res.json(data);
           })
           .catch(function(err) {
@@ -33,10 +33,10 @@ function QueryMarvel() {
       if (character) { //if data was cached and has expired
         res.json(JSON.parse(character));
       } else { //if data was not cached or has expired
-        httpRequest(basePath + '/' + id)
+        httpRequest(basePath + '/' + id + '/comics?')
           .then(function(response) {
             var data = response.body.data;
-            client.setex(id,30,JSON.stringify(data));
+            client.setex(id,60*60,JSON.stringify(data));
             res.json(data);
           })
       }

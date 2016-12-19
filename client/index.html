@@ -5,17 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Marvel</title>
-    <!-- <link href='https://fonts.googleapis.com/css?family=Oxygen:400,300,700' rel='stylesheet' type='text/css'> -->
-    <!-- <link href='https://fonts.googleapis.com/css?family=Lora' rel='stylesheet' type='text/css'> -->
     <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
-    <!-- <link rel="stylesheet" href="css/common.css"> -->
   </head>
   <body ng-app="marvel" ng-strict-di>
 
     <!-- Fixed position loading indicator -->
-     <!-- <loading class="loading-indicator"></loading> -->
+     <loading class="loading-indicator"></loading>
 
     <header>
         <nav class="navbar navbar-inverse">
@@ -49,18 +46,10 @@
 
     <footer class="panel-footer">
       <div class="container">
-        <div class="row">
-          <!-- <section id="hours" class="col-sm-4">
-            <span>Hours:</span><br>
-            Sun-Thurs: 11:15am - 10:00pm<br>
-            Fri: 11:15am - 2:30pm<br>
-            Saturday Closed
-            <hr class="visible-xs">
-          </section> -->
-        </div>
         <div class="text-center">
-          &copy; Copyright Qing Zhou 2016
-          <!-- <a ui-sref="admin.auth">Admin</a></div>  -->
+          <span>Powered By Marvel API</span>
+          <br>
+          <span>&copy; Copyright Qing Zhou 2016</span>
       </div>
     </footer>
 
@@ -69,39 +58,31 @@
     <script src="lib/bootstrap.min.js"></script>
     <script src="lib/angular.min.js"></script>
     <script src="lib/angular-ui-router.min.js"></script>
+    <script src="lib/angular-sanitize.min.js"></script>
 
     <!-- Main Module -->
     <script src="src/main.module.js"></script>
+    <script src="src/loader.module.js"></script>
 
     <!-- Routes -->
     <script src="src/main.routes.js"></script>
 
     <!-- Service -->
     <script src="src/marvel.service.js"></script>
+    <script src="src/comment.service.js"></script>
 
     <!-- Component -->
     <script src="src/character-component/character.component.js"></script>
+    <script src="src/detail-component/detail.component.js"></script>
+    <script src="src/comment-component/comment.component.js"></script>
+    <script src="src/loading/loading.component.js"></script>
 
     <!-- Controllers -->
     <script src="src/characters/characters.controller.js"></script>
+    <script src="src/details/details.controller.js"></script>
 
-    <!-- Common Module -->
-    <!-- <script src="src/common/common.module.js"></script>
-    <script src="src/common/loading/loading.component.js"></script>
-    <script src="src/common/loading/loading.interceptor.js"></script>
-    <script src="src/common/menu.service.js"></script> -->
-
-    <!-- Public Module -->
-    <!-- <script src="src/public/public.module.js"></script>
-    <script src="src/public/public.routes.js"></script>
-    <script src="src/public/menu/menu.controller.js"></script>
-    <script src="src/public/menu-category/menu-category.component.js"></script>
-    <script src="src/public/menu-items/menu-items.controller.js"></script>
-    <script src="src/public/menu-item/menu-item.component.js"></script> -->
-
-    <!-- ADMIN SITE -->
-
-    <!--Application files -->
+    <!-- interceptor -->
+    <script src="src/loading/loading.interceptor.js"></script>
 
   </body>
 

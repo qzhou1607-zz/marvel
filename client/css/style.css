@@ -1,5 +1,13 @@
+/*fonts*/
+@import url('https://fonts.googleapis.com/css?family=Audiowide|Oswald');
+
+/*general style*/
+body {
+  font-family: 'Audiowide', cursive;
+}
 .container {
-  padding:50px 15px;
+  padding:15px;
+  margin-bottom: 15px;
 }
 .left {
   float:left;
@@ -10,6 +18,34 @@
 .text-center {
   text-align: center;
 }
+.margin-wrapper {
+  margin:30px;
+}
+.list-group {
+  padding:0;
+}
+/*loader*/
+.loading-indicator {
+    display: block;
+    width: 70px;
+    position: fixed;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    top: 40%;
+    z-index: 100;
+    background-color: #FFF;
+}
+
+.loading-indicator img {
+    width: 70px;
+    background-color: #FFF;
+}
+
+.ui-view-placeholder {
+    margin-top: 60px;
+}
+
 
 /*initial loading block*/
 .initial-loading {
@@ -36,4 +72,48 @@
   padding:5px 20px;
   font-size: 2em;
   cursor: pointer;
+}
+.page-icon:hover {
+  background-color:#ccc;
+}
+
+/*detail page for each character*/
+.details .page-icon {
+  font-size:1em;
+}
+.detail-row {
+  overflow: auto;
+  margin:15px 0;
+}
+.detail-img {
+  border-radius:2%;
+  margin-top:10px;
+}
+.detail-description, .detail-related-characters {
+  font-size:0.9em;
+  font-family: 'Oswald', sans-serif;
+}
+.highlight {
+  background-color:#ccc;
+}
+/*Comments for each character*/
+.comments {
+  background-color:#ccc;
+  overflow: auto;
+}
+.comments .message {
+  font-family: 'Oswald', sans-serif;
+}
+.comments .ion-close-round {
+  float:right;
+  cursor: pointer;
+}
+.previous-comments, .new-comment {
+  overflow: auto;
+}
+.new-comment {
+  clear:both;
+}
+textarea[name="message"] {
+  height:200px;
 }

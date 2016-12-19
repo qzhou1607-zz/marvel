@@ -1,7 +1,7 @@
 <div class="col-md-3 col-sm-4 col-xs-12 col-xxs-12">
   <a href="#">
-    <div class="character-tile">
-      <img width="200" height="200" ng-src="{{$ctrl.character.thumbnail.path}}/standard_large.{{$ctrl.character.thumbnail.extension}}"
+    <div class="character-tile" ui-sref="character-details({id:$ctrl.character.id})">
+      <img width="200" height="200" ng-src="{{$ctrl.character.thumbnail.path}}/standard_medium.{{$ctrl.character.thumbnail.extension}}"
       alt="{{$ctrl.character.name}}">
       <span class="character-name text-center">{{$ctrl.character.name}}</span>
     </div>

@@ -9,7 +9,14 @@
     service.getAllCharacters = function(page) {
       return $http.get('/api/characters/' + page).then(
         function(response) {
-          console.log(response.data);
+          return response.data.results;
+        }
+      );
+    }
+
+    service.getCharacterDetails = function(characterId) {
+      return $http.get('/api/characters/details/' + characterId).then(
+        function(response) {
           return response.data.results;
         }
       );

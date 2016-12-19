@@ -12,12 +12,12 @@ module.exports = function (app) {
 	app.route('/api/characters/:page') //offset is used to allow the customization of offset number in http requests
 		.get(queryMarvelHandler.getAllCharacters);
 
-	app.route('/api/characters/:id')
+	app.route('/api/characters/details/:id')
     .get(queryMarvelHandler.getCharacterById)
 
   app.route('/api/characters/comments/:id')
     .get(commentHandler.getComments)
     .post(commentHandler.addComment)
-    .put(commentHandler.updateComment)
+    //.put(commentHandler.updateComment)
     .delete(commentHandler.deleteComment);
  };

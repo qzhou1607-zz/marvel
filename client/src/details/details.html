@@ -1,0 +1,53 @@
+<div class="container details">
+  <a ui-sref="characters">
+    <span class="ion-chevron-left page-icon"></span>
+    <span>&nbsp;BACK TO CHARACTERS</span>
+  </a>
+  <h3 class="text-center">Details of Comics</h3>
+  <detail-tile ng-repeat="detail in DetailsCtrl.details" detail="detail"></detail-tile>
+  <div class="detail-placeholder text-center" ng-hide="DetailsCtrl.details.length > 0">
+    No Comics Details Available, Check later!
+  </div>
+</div>
+<div class="container comments">
+  <div class="previous-comments margin-wrapper">
+    <h3 class="text-center" ng-if="DetailsCtrl.comments.length > 0">Comments</h3>
+    <comment-tile ng-repeat="comment in DetailsCtrl.comments"
+    comment="comment" index="comment._id" on-remove="DetailsCtrl.deleteComment(index)"></comment-tile>
+  </div>
+  <div class="new-comment margin-wrapper">
+    <h3 class="text-center">Leave A Comment</h3>
+    <form class="form-horizontal col-sm-12" name="commentForm" novalidate>
+    <div class="form-group">
+      <label class="col-sm-3 control-label">Name: </label>
+      <div class="col-sm-6">
+        <input type="text" name="name" class="form-control" ng-model="DetailsCtrl.newComment.name" required>
+      </div>
+      <div class="col-sm-3 error" ng-if="(commentForm.name.$error.required)&&(commentForm.name.$touched)">
+        Name is required!
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 control-label">Message: </label>
+      <div class="col-sm-6">
+        <textarea type="text" name="message" class="form-control" ng-model="DetailsCtrl.newComment.message" required></textarea>
+      </div>
+      <div class="col-sm-3 error" ng-if="(commentForm.message.$error.required)&&(commentForm.message.$touched)">
+        Message is required!
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-3 col-sm-3">
+        <button type="button" name="button" class="btn btn-primary"
+        ng-disabled="commentForm.$invalid"
+        ng-click="DetailsCtrl.submitComment(commentForm)">
+          <b>SUBMIT</b>
+        </button>
+      </div>
+    </div>
+    <div class="col-sm-6 col-sm-offset-3" ng-if="DetailsCtrl.complete">
+      <h3>This comment has been saved!</h3>
+    </div>
+  </form>
+  </div>
+</div>
