@@ -3,11 +3,10 @@
 var path = require('path');
 var request = require('request');
 var crypto = require('crypto');
-var dotenv = require('dotenv');
 var q = require('q');
 var ts = new Date().getTime();
 
-dotenv.config();
+require('dotenv').load();
 
 
 var privateKey = process.env.PRIVATE_KEY;
