@@ -17,11 +17,12 @@ app.use(bodyParser.json());
 
 routes(app);
 
-app.set('port',(process.env.Port||8080));
+
 app.use(function(req,res) {
   res.status(404);
 });
 
-app.listen(app.get('port'), function() {
-  console.log('Server listening on port: ' + app.get('port'));
+var port = process.env.PORT || 8080;
+app.listen(port,  function () {
+	console.log('Node.js listening on port ' + port + '...');
 });
