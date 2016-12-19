@@ -2,7 +2,6 @@
 
 var basePath = 'http://gateway.marvel.com/v1/public/characters';
 var httpRequest = require('./http-request');
-var flatten = require('flat');
 var client = require('./redis.js');
 
 function QueryMarvel() {

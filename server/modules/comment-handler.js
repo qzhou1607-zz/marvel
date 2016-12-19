@@ -26,7 +26,7 @@ function commentHandler() {
                 //update cache
                 reloadComments(newId) //reload comments from database
                   .then(function(response) {
-                    client.setex(newId+'-comments',60, JSON.stringify(response));
+                    client.setex(newId+'-comments',60*60*12, JSON.stringify(response));
                     res.json({'success':'new comment was saved!', 'data':result});
                   });
         });
@@ -41,7 +41,7 @@ function commentHandler() {
       } else {  // if comments are not cached or expired
         reloadComments(targetId) //reload comments from database
           .then(function(response) {
-            client.setex(targetId+'-comments',30, JSON.stringify(response));
+            client.setex(targetId+'-comments',60*60*12, JSON.stringify(response));
             res.json(response);
           });
       }
@@ -58,7 +58,7 @@ function commentHandler() {
               var targetId = result.characterId;
               reloadComments(targetId) //reload comments from database
                 .then(function(response) {
-                  client.setex(targetId+'-comments',60, JSON.stringify(response));
+                  client.setex(targetId+'-comments',60*60*12, JSON.stringify(response));
                   res.json({'success':'comment was deleted!', 'data':response});
                 });
             });
